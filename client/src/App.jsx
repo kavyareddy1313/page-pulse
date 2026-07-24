@@ -202,3 +202,15 @@ export default function App() {
                       </>
                     ) : (
                       <>
+                        Analyze <ArrowRight size={18} />
+                      </>
+                    )}
+                  </button>
+                </div>
+                {inputError && (
+                  <p className="text-red-500 text-sm mt-2 ml-1">{inputError}</p>
+                )}
+              </form>
+
+              {appState === "idle" && (
+                <div className="mt-6 bg-gray-50 rounded-lg p-4 flex items-center gap-3 text-gray-600 border border-gray-100">
