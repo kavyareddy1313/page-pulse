@@ -250,3 +250,15 @@ export default function App() {
             {appState === "error" && error && (
               <div className="mt-6 bg-[#fff8eb] border border-[#f5dab1] rounded-xl p-5 flex items-start gap-4">
                 <AlertCircle className="text-amber-500 shrink-0 mt-0.5" size={20} />
+                <div>
+                  <h3 className="text-gray-900 font-semibold mb-1 text-base">
+                    Couldn't reach that page
+                  </h3>
+                  <p className="text-gray-600 text-sm">
+                    {error.message || "Check the URL and try again. The server took too long to respond."}
+                  </p>
+                </div>
+              </div>
+            )}
+          </div>
+        )}
