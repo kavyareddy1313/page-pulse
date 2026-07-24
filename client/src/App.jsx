@@ -178,3 +178,15 @@ export default function App() {
                         setInputError(null);
                       }}
                       placeholder={
+                        appState === "error"
+                          ? "https://example.com/broken-link-test-page"
+                          : "https://example.com"
+                      }
+                      className="w-full pl-12 pr-4 py-3 rounded-lg border border-gray-200 bg-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 text-gray-900 placeholder-gray-400"
+                      disabled={loading}
+                    />
+                  </div>
+                  <button
+                    type="submit"
+                    disabled={loading}
+                    className={`px-6 py-3 rounded-lg font-medium flex items-center justify-center gap-2 transition-colors ${
