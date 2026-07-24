@@ -490,3 +490,12 @@ export default function App() {
       <footer className="bg-white border-t border-gray-200 py-6 px-6 text-sm text-gray-500 flex justify-between items-center shrink-0">
         <div>
           © 2024 Page Pulse. Precision SEO Analysis.
+        </div>
+        <div className="flex gap-6">
+          <a href="#" className="hover:text-gray-900">Documentation</a>
+          <a href="#" className="hover:text-gray-900">Support</a>
+        </div>
+      </footer>
+    </>
+  );
+}
