@@ -166,3 +166,15 @@ export default function App() {
             <div className="bg-white rounded-xl shadow-[0_2px_10px_rgba(0,0,0,0.04)] border border-gray-200 p-5 sm:p-8">
               <form onSubmit={handleSubmit}>
                 <div className="flex flex-col sm:flex-row gap-3">
+                  <div className="flex-1 relative flex items-center">
+                    <div className="absolute left-4 text-gray-400">
+                      {appState === "error" ? <Search size={20} /> : <LinkIcon size={20} />}
+                    </div>
+                    <input
+                      type="text"
+                      value={url}
+                      onChange={(e) => {
+                        setUrl(e.target.value);
+                        setInputError(null);
+                      }}
+                      placeholder={
