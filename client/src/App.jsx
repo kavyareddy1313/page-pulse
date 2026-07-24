@@ -238,3 +238,15 @@ export default function App() {
                   stripe.com/docs
                 </button>
               </div>
+            )}
+
+            {appState === "analyzing" && (
+              <div className="mt-8 flex justify-center text-blue-600 text-sm font-mono items-center gap-2">
+                <Search size={16} />
+                Initiating technical audit... fetching headers.
+              </div>
+            )}
+
+            {appState === "error" && error && (
+              <div className="mt-6 bg-[#fff8eb] border border-[#f5dab1] rounded-xl p-5 flex items-start gap-4">
+                <AlertCircle className="text-amber-500 shrink-0 mt-0.5" size={20} />
