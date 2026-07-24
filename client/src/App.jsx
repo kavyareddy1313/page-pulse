@@ -298,3 +298,15 @@ export default function App() {
               >
                 Re-analyze
               </button>
+            </div>
+
+            <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
+              {/* Results Header */}
+              <div className="px-6 py-6 border-b border-gray-100 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                <div>
+                  <h2 className="text-2xl font-bold text-gray-900 mb-1 tracking-tight">
+                    Analysis Results
+                  </h2>
+                  <p className="text-sm text-gray-500 font-mono">
+                    Analyzed {result.url} just now
+                  </p>
