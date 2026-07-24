@@ -478,3 +478,15 @@ export default function App() {
                     <Plus size={18} /> Add Metric Widget
                   </div>
                 </div>
+
+              </div>
+            </div>
+          </div>
+        )}
+
+      </main>
+
+      {/* ── Footer ───────────────────────────────────────────────── */}
+      <footer className="bg-white border-t border-gray-200 py-6 px-6 text-sm text-gray-500 flex justify-between items-center shrink-0">
+        <div>
+          © 2024 Page Pulse. Precision SEO Analysis.
