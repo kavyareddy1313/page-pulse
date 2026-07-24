@@ -382,3 +382,15 @@ export default function App() {
                       PAGE TITLE
                     </span>
                     {result.pageTitle && (
+                      <span className="px-2 py-0.5 rounded text-xs font-medium bg-emerald-50 text-emerald-600">
+                        {result.pageTitle.length} chars
+                      </span>
+                    )}
+                  </div>
+                  <div className="text-base text-gray-900 mb-3 truncate font-medium">
+                    {result.pageTitle || "No title found"}
+                  </div>
+                  {result.pageTitle && (
+                    <div className="bg-[#1a1b26] text-gray-300 text-xs font-mono p-3 rounded-lg truncate">
+                      <span className="text-pink-400">&lt;title&gt;</span>
+                      {result.pageTitle}
