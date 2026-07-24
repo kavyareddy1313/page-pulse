@@ -34,3 +34,15 @@ export default function App() {
     setResult(null);
 
     const trimmed = url.trim();
+    if (!trimmed) {
+      setInputError("Please enter a URL");
+      return;
+    }
+
+    try {
+      const parsed = new URL(trimmed);
+      if (!["http:", "https:"].includes(parsed.protocol)) {
+        setInputError("URL must start with http:// or https://");
+        return;
+      }
+    } catch {
