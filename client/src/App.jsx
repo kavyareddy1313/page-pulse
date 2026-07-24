@@ -22,3 +22,15 @@ export default function App() {
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState(null);
   const [error, setError] = useState(null);
+  const [inputError, setInputError] = useState(null);
+
+  // States: 'idle', 'analyzing', 'results', 'error'
+  const [appState, setAppState] = useState("idle");
+
+  async function handleSubmit(e) {
+    if (e) e.preventDefault();
+    setInputError(null);
+    setError(null);
+    setResult(null);
+
+    const trimmed = url.trim();
