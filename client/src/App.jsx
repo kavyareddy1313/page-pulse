@@ -291,7 +291,6 @@ export default function App() {
             </div>
 
             <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
-              {/* Results Header */}
               <div className="px-6 py-6 border-b border-gray-100 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                 <div>
                   <h2 className="text-2xl font-bold text-gray-900 mb-1 tracking-tight">
