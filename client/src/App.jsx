@@ -142,3 +142,15 @@ export default function App() {
           <div className="text-center mb-10">
             <h1 className="text-4xl font-bold text-gray-900 mb-3 tracking-tight">
               Precision SEO Analysis
+            </h1>
+            <p className="text-gray-500 text-lg max-w-2xl mx-auto">
+              Enter a URL to initiate a comprehensive technical audit, performance breakdown, and actionable optimization insights.
+            </p>
+          </div>
+        )}
+
+        {appState === "error" && (
+          <div className="text-center mb-10">
+            <h1 className="text-4xl font-bold text-gray-900 mb-3 tracking-tight">
+              Run SEO Audit
+            </h1>
