@@ -1,11 +1,6 @@
 const { analyzeUrl } = require("../server/analyze.js");
 
-/**
- * Vercel serverless function wrapper for the analyze endpoint.
- * Reuses the same core logic from server/analyze.js.
- */
 module.exports = async function handler(req, res) {
-  // Only allow POST requests
   if (req.method !== "POST") {
     res.setHeader("Allow", "POST");
     return res.status(405).json({
