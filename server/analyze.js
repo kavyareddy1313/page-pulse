@@ -1,0 +1,181 @@
+const cheerio = require("cheerio");
+
+// ── Core analysis function ──────────────────────────────────────────
+
+/**
+ * Analyzes a URL for basic SEO & health metrics.
+ * Returns a structured response — never throws.
+ *
+ * @param {string} rawUrl - The URL to analyze
+ * @returns {Promise<{status: number, body: object}>}
+ */
+async function analyzeUrl(rawUrl) {
+  try {
+    // 1. Validate the URL is well-formed and uses http(s)
+    let parsedUrl;
+    try {
+      parsedUrl = new URL(rawUrl);
+    } catch {
+      return {
+        status: 400,
+        body: {
+          success: false,
+          error: {
+            type: "INVALID_URL",
+            message:
+              "Please enter a valid URL (must start with http:// or https://)",
+          },
+        },
+      };
+    }
+
+    if (!["http:", "https:"].includes(parsedUrl.protocol)) {
+      return {
+        status: 400,
+        body: {
+          success: false,
+          error: {
+            type: "INVALID_URL",
+            message: "URL must use http:// or https:// protocol",
+          },
+        },
+      };
+    }
+
+    // 2. Fetch the page with an 8-second timeout and browser-like UA
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 8000);
+
+    let response;
+    const startTime = Date.now();
+
+    try {
+      response = await fetch(parsedUrl.href, {
+        signal: controller.signal,
+        headers: {
+          "User-Agent":
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+          Accept:
+            "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        },
+        redirect: "follow",
+      });
+    } catch (err) {
+      clearTimeout(timeout);
+
+      // Distinguish between abort (timeout) and other network errors
+      if (err instanceof Error && err.name === "AbortError") {
+        return {
+          status: 408,
+          body: {
+            success: false,
+            error: {
+              type: "TIMEOUT",
+              message:
+                "Request timed out — the site took longer than 8 seconds to respond",
+            },
+          },
+        };
+      }
+
+      return {
+        status: 502,
+        body: {
+          success: false,
+          error: {
+            type: "FETCH_FAILED",
+            message:
+              "Could not reach that URL — the site may be down or the domain may not exist",
+          },
+        },
+      };
+    }
+
+    clearTimeout(timeout);
+    const responseTimeMs = Date.now() - startTime;
+
+    // 3. Verify the response is HTML (reject PDFs, images, JSON, etc.)
+    const contentType = response.headers.get("content-type") || "";
+    if (!contentType.includes("text/html")) {
+      return {
+        status: 422,
+        body: {
+          success: false,
+          error: {
+            type: "NON_HTML_RESPONSE",
+            message: `That URL didn't return an HTML page (received ${contentType.split(";")[0].trim() || "unknown content type"})`,
+          },
+        },
+      };
+    }
+
+    // 4. Read and parse the HTML body with cheerio
+    const html = await response.text();
+    const $ = cheerio.load(html);
+
+    // Extract page title
+    const pageTitle = $("title").first().text().trim() || null;
+
+    // Extract meta description
+    const metaDescription =
+      $('meta[name="description"]').attr("content")?.trim() || null;
+
+    // Count H1 tags
+    const h1Count = $("h1").length;
+
+    // Count images missing alt text (alt attribute absent or empty)
+    let imagesMissingAlt = 0;
+    $("img").each((_, el) => {
+      const alt = $(el).attr("alt");
+      if (alt === undefined || alt.trim() === "") {
+        imagesMissingAlt++;
+      }
+    });
+
+    // Approximate word count — strip scripts/styles, get visible text
+    $("script, style, noscript").remove();
+    const visibleText = $("body").text();
+    const words = visibleText
+      .replace(/\s+/g, " ")
+      .trim()
+      .split(" ")
+      .filter((w) => w.length > 0);
+    const wordCount = words.length;
+
+    // 5. Return the successful analysis
+    return {
+      status: 200,
+      body: {
+        success: true,
+        data: {
+          url: parsedUrl.href,
+          statusCode: response.status,
+          responseTimeMs,
+          pageTitle,
+          metaDescription,
+          h1Count,
+          imagesMissingAlt,
+          wordCount,
+        },
+      },
+    };
+  } catch (err) {
+    // Global catch — ensures we NEVER return a raw 500 or non-JSON response
+    console.error("Unexpected error in analyzeUrl:", err);
+    return {
+      status: 500,
+      body: {
+        success: false,
+        error: {
+          type: "UNKNOWN",
+          message:
+            err instanceof Error
+              ? err.message
+              : "An unexpected error occurred while analyzing the URL",
+        },
+      },
+    };
+  }
+}
+
+module.exports = { analyzeUrl };
