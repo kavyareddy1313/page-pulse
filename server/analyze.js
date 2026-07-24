@@ -96,21 +96,16 @@ async function analyzeUrl(rawUrl) {
       };
     }
 
-    // 4. Read and parse the HTML body with cheerio
     const html = await response.text();
     const $ = cheerio.load(html);
 
-    // Extract page title
     const pageTitle = $("title").first().text().trim() || null;
 
-    // Extract meta description
     const metaDescription =
       $('meta[name="description"]').attr("content")?.trim() || null;
 
-    // Count H1 tags
     const h1Count = $("h1").length;
 
-    // Count images missing alt text (alt attribute absent or empty)
     let imagesMissingAlt = 0;
     $("img").each((_, el) => {
       const alt = $(el).attr("alt");
