@@ -418,3 +418,15 @@ export default function App() {
                 {/* Meta Description */}
                 <div className="bg-white rounded-xl border border-gray-200 p-5 md:col-span-2 lg:col-span-2">
                   <div className="flex justify-between items-start mb-4">
+                    <span className="text-xs font-semibold text-gray-500 tracking-wider">
+                      META DESCRIPTION
+                    </span>
+                    {result.metaDescription && (
+                      <span className={`px-2 py-0.5 rounded text-xs font-medium ${
+                        result.metaDescription.length > 160 
+                        ? "bg-amber-50 text-amber-600" 
+                        : "bg-emerald-50 text-emerald-600"
+                      }`}>
+                        {result.metaDescription.length} chars {result.metaDescription.length > 160 && "(slightly long)"}
+                      </span>
+                    )}
