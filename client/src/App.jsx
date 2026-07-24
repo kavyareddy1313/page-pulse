@@ -454,3 +454,15 @@ export default function App() {
 
                 {/* Missing Alt Text */}
                 <div className={`bg-white rounded-xl border p-5 ${result.imagesMissingAlt > 0 ? "border-red-200" : "border-gray-200"}`}>
+                  <div className="flex justify-between items-start mb-4">
+                    <span className="text-xs font-semibold text-gray-500 tracking-wider">
+                      MISSING ALT TEXT
+                    </span>
+                    {result.imagesMissingAlt > 0 ? (
+                      <ImageOff size={20} className="text-red-500" />
+                    ) : (
+                      <CheckCircle2 size={20} className="text-emerald-500" />
+                    )}
+                  </div>
+                  <div className={`text-2xl font-bold mb-1 ${result.imagesMissingAlt > 0 ? "text-red-600" : "text-gray-900"}`}>
+                    {result.imagesMissingAlt}
