@@ -70,3 +70,15 @@ export default function App() {
         setAppState("error");
       }
     } catch {
+      setError({ message: "Failed to connect to the analysis server." });
+      setAppState("error");
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  function handleTryLink(exampleUrl) {
+    setUrl(`https://${exampleUrl}`);
+    // We don't auto-submit to let them see it, but we could.
+  }
+
