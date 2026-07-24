@@ -310,3 +310,15 @@ export default function App() {
                   <p className="text-sm text-gray-500 font-mono">
                     Analyzed {result.url} just now
                   </p>
+                </div>
+                <div className="flex items-center gap-3">
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-emerald-50 text-emerald-600 text-xs font-medium border border-emerald-100">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                    Healthy
+                  </span>
+                  <button className="inline-flex items-center gap-2 px-3 py-1.5 text-sm text-gray-600 hover:text-gray-900 font-medium">
+                    <Download size={16} /> Export
+                  </button>
+                </div>
+              </div>
+
