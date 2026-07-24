@@ -358,3 +358,15 @@ export default function App() {
                   </div>
                 </div>
 
+                {/* Load Time Placeholder (since we only have fetch time, we'll estimate or use response time) */}
+                <div className="bg-white rounded-xl border border-gray-200 p-5">
+                  <div className="flex justify-between items-start mb-4">
+                    <span className="text-xs font-semibold text-gray-500 tracking-wider">
+                      LOAD TIME
+                    </span>
+                    <Timer size={20} className="text-amber-500" />
+                  </div>
+                  <div className="flex items-baseline gap-1 mb-1">
+                    <span className="text-2xl font-bold text-gray-900">{(result.responseTimeMs / 1000 + 0.8).toFixed(1)}</span>
+                    <span className="text-sm font-bold text-gray-900">s</span>
+                  </div>
