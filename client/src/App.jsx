@@ -130,3 +130,15 @@ export default function App() {
         {appState === "idle" && (
           <div className="text-center mb-10">
             <h1 className="text-4xl font-bold text-gray-900 mb-3 tracking-tight">
+              Page Pulse
+            </h1>
+            <p className="text-gray-500 text-lg">
+              Instant health & SEO snapshot for any webpage.
+            </p>
+          </div>
+        )}
+
+        {appState === "analyzing" && (
+          <div className="text-center mb-10">
+            <h1 className="text-4xl font-bold text-gray-900 mb-3 tracking-tight">
+              Precision SEO Analysis
