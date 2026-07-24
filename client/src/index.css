@@ -1,6 +1,7 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-/* ── Base styles ─────────────────────────────────────────────── */
 
 * {
   margin: 0;
@@ -13,13 +14,11 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: #fafafa;
-  /* Subtle dot pattern */
   background-image: radial-gradient(#e5e7eb 1px, transparent 1px);
   background-size: 20px 20px;
   color: #111827;
 }
 
-/* Ensure the root div takes full height */
 #root {
   min-height: 100vh;
   display: flex;
