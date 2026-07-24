@@ -286,3 +286,15 @@ export default function App() {
         {/* Results State */}
         {appState === "results" && result && (
           <div className="w-full animate-in fade-in duration-500">
+            {/* Top compact search bar area */}
+            <div className="bg-white border border-gray-200 rounded-xl p-3 flex items-center justify-between mb-8 shadow-sm">
+              <div className="flex items-center gap-3 px-3 text-sm text-gray-900 font-medium truncate">
+                <Globe size={18} className="text-gray-400 shrink-0" />
+                <span className="truncate">{result.url}</span>
+              </div>
+              <button 
+                onClick={() => setAppState("idle")} 
+                className="bg-blue-600 text-white px-5 py-2 rounded-lg text-sm font-medium hover:bg-blue-700 shrink-0"
+              >
+                Re-analyze
+              </button>
