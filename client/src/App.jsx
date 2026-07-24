@@ -118,3 +118,15 @@ export default function App() {
               src="https://api.dicebear.com/7.x/notionists/svg?seed=Felix&backgroundColor=f3f4f6"
               alt="User Avatar"
               className="w-full h-full object-cover"
+            />
+          </div>
+        </div>
+      </nav>
+
+      {/* ── Main Content ─────────────────────────────────────────── */}
+      <main className="flex-1 flex flex-col pt-16 pb-20 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto w-full">
+        
+        {/* Header changes based on state */}
+        {appState === "idle" && (
+          <div className="text-center mb-10">
+            <h1 className="text-4xl font-bold text-gray-900 mb-3 tracking-tight">
