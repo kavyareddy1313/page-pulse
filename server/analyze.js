@@ -1,17 +1,7 @@
 const cheerio = require("cheerio");
 
-// ── Core analysis function ──────────────────────────────────────────
-
-/**
- * Analyzes a URL for basic SEO & health metrics.
- * Returns a structured response — never throws.
- *
- * @param {string} rawUrl - The URL to analyze
- * @returns {Promise<{status: number, body: object}>}
- */
 async function analyzeUrl(rawUrl) {
   try {
-    // 1. Validate the URL is well-formed and uses http(s)
     let parsedUrl;
     try {
       parsedUrl = new URL(rawUrl);
