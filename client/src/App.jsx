@@ -357,8 +357,6 @@ export default function App() {
                     Estimated LCP
                   </div>
                 </div>
-
-                {/* Page Title */}
                 <div className="bg-white rounded-xl border border-gray-200 p-5 md:col-span-2 lg:col-span-2">
                   <div className="flex justify-between items-start mb-4">
                     <span className="text-xs font-semibold text-gray-500 tracking-wider">
