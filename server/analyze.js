@@ -114,7 +114,6 @@ async function analyzeUrl(rawUrl) {
       }
     });
 
-    // Approximate word count — strip scripts/styles, get visible text
     $("script, style, noscript").remove();
     const visibleText = $("body").text();
     const words = visibleText
