@@ -342,8 +342,6 @@ export default function App() {
                     TTFB (Time to First Byte)
                   </div>
                 </div>
-
-                {/* Load Time Placeholder (since we only have fetch time, we'll estimate or use response time) */}
                 <div className="bg-white rounded-xl border border-gray-200 p-5">
                   <div className="flex justify-between items-start mb-4">
                     <span className="text-xs font-semibold text-gray-500 tracking-wider">
