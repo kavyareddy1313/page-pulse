@@ -58,3 +58,15 @@ export default function App() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ url: trimmed }),
+      });
+
+      const data = await res.json();
+
+      if (data.success) {
+        setResult(data.data);
+        setAppState("results");
+      } else {
+        setError(data.error);
+        setAppState("error");
+      }
+    } catch {
