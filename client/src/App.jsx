@@ -24,7 +24,6 @@ export default function App() {
   const [error, setError] = useState(null);
   const [inputError, setInputError] = useState(null);
 
-  // States: 'idle', 'analyzing', 'results', 'error'
   const [appState, setAppState] = useState("idle");
 
   async function handleSubmit(e) {
