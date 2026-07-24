@@ -52,7 +52,6 @@ async function analyzeUrl(rawUrl) {
     } catch (err) {
       clearTimeout(timeout);
 
-      // Distinguish between abort (timeout) and other network errors
       if (err instanceof Error && err.name === "AbortError") {
         return {
           status: 408,
