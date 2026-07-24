@@ -154,3 +154,15 @@ export default function App() {
             <h1 className="text-4xl font-bold text-gray-900 mb-3 tracking-tight">
               Run SEO Audit
             </h1>
+            <p className="text-gray-500 text-lg">
+              Analyze any URL for technical SEO performance and actionable insights.
+            </p>
+          </div>
+        )}
+
+        {/* The Search Box - Changes style slightly in Results state */}
+        {appState !== "results" && (
+          <div className="max-w-2xl mx-auto w-full mb-8">
+            <div className="bg-white rounded-xl shadow-[0_2px_10px_rgba(0,0,0,0.04)] border border-gray-200 p-5 sm:p-8">
+              <form onSubmit={handleSubmit}>
+                <div className="flex flex-col sm:flex-row gap-3">
