@@ -322,3 +322,15 @@ export default function App() {
                 </div>
               </div>
 
+              {/* Metrics Grid */}
+              <div className="p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 bg-gray-50/50">
+                
+                {/* Status Code */}
+                <div className="bg-white rounded-xl border border-gray-200 p-5">
+                  <div className="flex justify-between items-start mb-4">
+                    <span className="text-xs font-semibold text-gray-500 tracking-wider">
+                      STATUS CODE
+                    </span>
+                    <CheckCircle2 size={20} className={result.statusCode >= 200 && result.statusCode < 300 ? "text-emerald-500" : "text-amber-500"} />
+                  </div>
+                  <div className="text-2xl font-bold text-gray-900 mb-1">
