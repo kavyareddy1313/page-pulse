@@ -190,3 +190,15 @@ export default function App() {
                     type="submit"
                     disabled={loading}
                     className={`px-6 py-3 rounded-lg font-medium flex items-center justify-center gap-2 transition-colors ${
+                      loading
+                        ? "bg-gray-100 text-gray-500 cursor-not-allowed border border-gray-200"
+                        : "bg-blue-600 text-white hover:bg-blue-700"
+                    }`}
+                  >
+                    {loading ? (
+                      <>
+                        <div className="w-4 h-4 rounded-full border-2 border-gray-400 border-t-transparent animate-spin" />
+                        Analyzing...
+                      </>
+                    ) : (
+                      <>
