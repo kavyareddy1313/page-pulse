@@ -46,3 +46,15 @@ export default function App() {
         return;
       }
     } catch {
+      setInputError("Please enter a valid URL (e.g. https://example.com)");
+      return;
+    }
+
+    setLoading(true);
+    setAppState("analyzing");
+
+    try {
+      const res = await fetch("/api/analyze", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ url: trimmed }),
