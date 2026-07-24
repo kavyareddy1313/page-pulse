@@ -78,12 +78,10 @@ export default function App() {
 
   function handleTryLink(exampleUrl) {
     setUrl(`https://${exampleUrl}`);
-    // We don't auto-submit to let them see it, but we could.
   }
 
   return (
     <>
-      {/* ── Navigation Bar ───────────────────────────────────────── */}
       <nav className="bg-white border-b border-gray-200 px-6 h-16 flex items-center justify-between shrink-0">
         <div className="flex items-center gap-10">
           <div className="font-bold text-xl text-blue-600 tracking-tight">
