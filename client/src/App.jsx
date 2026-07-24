@@ -370,3 +370,15 @@ export default function App() {
                     <span className="text-2xl font-bold text-gray-900">{(result.responseTimeMs / 1000 + 0.8).toFixed(1)}</span>
                     <span className="text-sm font-bold text-gray-900">s</span>
                   </div>
+                  <div className="text-sm text-gray-500">
+                    Estimated LCP
+                  </div>
+                </div>
+
+                {/* Page Title */}
+                <div className="bg-white rounded-xl border border-gray-200 p-5 md:col-span-2 lg:col-span-2">
+                  <div className="flex justify-between items-start mb-4">
+                    <span className="text-xs font-semibold text-gray-500 tracking-wider">
+                      PAGE TITLE
+                    </span>
+                    {result.pageTitle && (
