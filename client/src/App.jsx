@@ -106,3 +106,15 @@ export default function App() {
             <a href="#" className="h-16 flex items-center hover:text-gray-900 px-1">
               Settings
             </a>
+          </div>
+        </div>
+        <div className="flex items-center gap-5">
+          <button className="text-gray-400 hover:text-gray-600">
+            <Bell size={20} />
+          </button>
+          <div className="w-8 h-8 rounded-full bg-gray-200 overflow-hidden border border-gray-300">
+            {/* Placeholder avatar */}
+            <img
+              src="https://api.dicebear.com/7.x/notionists/svg?seed=Felix&backgroundColor=f3f4f6"
+              alt="User Avatar"
+              className="w-full h-full object-cover"
