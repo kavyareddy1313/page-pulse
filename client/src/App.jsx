@@ -466,3 +466,15 @@ export default function App() {
                   </div>
                   <div className={`text-2xl font-bold mb-1 ${result.imagesMissingAlt > 0 ? "text-red-600" : "text-gray-900"}`}>
                     {result.imagesMissingAlt}
+                  </div>
+                  <div className="text-sm text-gray-500">
+                    {result.imagesMissingAlt > 0 ? "Requires attention" : "All images have alt text"}
+                  </div>
+                </div>
+
+                {/* Add Widget Placeholder */}
+                <div className="rounded-xl border border-dashed border-gray-300 p-5 flex items-center justify-center bg-gray-50/50 hover:bg-gray-50 cursor-pointer transition-colors min-h-[140px]">
+                  <div className="flex items-center gap-2 text-sm text-gray-500 font-medium">
+                    <Plus size={18} /> Add Metric Widget
+                  </div>
+                </div>
