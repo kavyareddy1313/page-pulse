@@ -394,3 +394,15 @@ export default function App() {
                     <div className="bg-[#1a1b26] text-gray-300 text-xs font-mono p-3 rounded-lg truncate">
                       <span className="text-pink-400">&lt;title&gt;</span>
                       {result.pageTitle}
+                      <span className="text-pink-400">&lt;/title&gt;</span>
+                    </div>
+                  )}
+                </div>
+
+                {/* Word Count */}
+                <div className="bg-white rounded-xl border border-gray-200 p-5">
+                  <div className="flex justify-between items-start mb-4">
+                    <span className="text-xs font-semibold text-gray-500 tracking-wider">
+                      WORD COUNT
+                    </span>
+                    <AlignLeft size={20} className={result.wordCount > 300 ? "text-emerald-500" : "text-amber-500"} />
