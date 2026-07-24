@@ -82,7 +82,6 @@ async function analyzeUrl(rawUrl) {
     clearTimeout(timeout);
     const responseTimeMs = Date.now() - startTime;
 
-    // 3. Verify the response is HTML (reject PDFs, images, JSON, etc.)
     const contentType = response.headers.get("content-type") || "";
     if (!contentType.includes("text/html")) {
       return {
