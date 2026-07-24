@@ -311,10 +311,8 @@ export default function App() {
                 </div>
               </div>
 
-              {/* Metrics Grid */}
               <div className="p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 bg-gray-50/50">
                 
-                {/* Status Code */}
                 <div className="bg-white rounded-xl border border-gray-200 p-5">
                   <div className="flex justify-between items-start mb-4">
                     <span className="text-xs font-semibold text-gray-500 tracking-wider">
