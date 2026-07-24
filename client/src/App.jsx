@@ -94,3 +94,15 @@ export default function App() {
             <a
               href="#"
               className="h-16 flex items-center text-blue-600 border-b-2 border-blue-600 px-1"
+            >
+              Dashboard
+            </a>
+            <a href="#" className="h-16 flex items-center hover:text-gray-900 px-1">
+              Audits
+            </a>
+            <a href="#" className="h-16 flex items-center hover:text-gray-900 px-1">
+              History
+            </a>
+            <a href="#" className="h-16 flex items-center hover:text-gray-900 px-1">
+              Settings
+            </a>
