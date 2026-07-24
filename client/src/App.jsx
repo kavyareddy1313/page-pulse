@@ -426,8 +426,6 @@ export default function App() {
                     {result.h1Count === 1 ? "Optimal count" : result.h1Count === 0 ? "Missing H1" : "Multiple H1s"}
                   </div>
                 </div>
-
-                {/* Missing Alt Text */}
                 <div className={`bg-white rounded-xl border p-5 ${result.imagesMissingAlt > 0 ? "border-red-200" : "border-gray-200"}`}>
                   <div className="flex justify-between items-start mb-4">
                     <span className="text-xs font-semibold text-gray-500 tracking-wider">
