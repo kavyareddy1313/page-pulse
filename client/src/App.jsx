@@ -154,7 +154,6 @@ export default function App() {
           </div>
         )}
 
-        {/* The Search Box - Changes style slightly in Results state */}
         {appState !== "results" && (
           <div className="max-w-2xl mx-auto w-full mb-8">
             <div className="bg-white rounded-xl shadow-[0_2px_10px_rgba(0,0,0,0.04)] border border-gray-200 p-5 sm:p-8">
