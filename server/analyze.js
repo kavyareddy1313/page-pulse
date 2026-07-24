@@ -123,7 +123,6 @@ async function analyzeUrl(rawUrl) {
       .filter((w) => w.length > 0);
     const wordCount = words.length;
 
-    // 5. Return the successful analysis
     return {
       status: 200,
       body: {
