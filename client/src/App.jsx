@@ -334,3 +334,15 @@ export default function App() {
                     <CheckCircle2 size={20} className={result.statusCode >= 200 && result.statusCode < 300 ? "text-emerald-500" : "text-amber-500"} />
                   </div>
                   <div className="text-2xl font-bold text-gray-900 mb-1">
+                    {result.statusCode}
+                  </div>
+                  <div className="text-sm text-gray-500">
+                    {result.statusCode >= 200 && result.statusCode < 300 ? "OK" : "Error"}
+                  </div>
+                </div>
+
+                {/* Response Time */}
+                <div className="bg-white rounded-xl border border-gray-200 p-5">
+                  <div className="flex justify-between items-start mb-4">
+                    <span className="text-xs font-semibold text-gray-500 tracking-wider">
+                      RESPONSE TIME
