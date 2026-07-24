@@ -262,3 +262,15 @@ export default function App() {
             )}
           </div>
         )}
+
+        {/* Skeleton State */}
+        {appState === "analyzing" && (
+          <div className="w-full mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 animate-pulse">
+            {[1, 2, 3].map((i) => (
+              <div key={i} className="bg-white rounded-xl border border-gray-200 p-6 h-36">
+                <div className="flex justify-between mb-4">
+                  <div className="w-24 h-4 bg-gray-200 rounded"></div>
+                  <div className="w-6 h-6 bg-gray-200 rounded-full"></div>
+                </div>
+                <div className="w-32 h-8 bg-gray-200 rounded mb-4"></div>
+                <div className="w-full h-2 bg-gray-100 rounded"></div>
