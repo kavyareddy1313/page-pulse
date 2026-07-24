@@ -140,7 +140,6 @@ async function analyzeUrl(rawUrl) {
       },
     };
   } catch (err) {
-    // Global catch — ensures we NEVER return a raw 500 or non-JSON response
     console.error("Unexpected error in analyzeUrl:", err);
     return {
       status: 500,
