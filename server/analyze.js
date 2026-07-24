@@ -32,7 +32,6 @@ async function analyzeUrl(rawUrl) {
       };
     }
 
-    // 2. Fetch the page with an 8-second timeout and browser-like UA
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), 8000);
 
