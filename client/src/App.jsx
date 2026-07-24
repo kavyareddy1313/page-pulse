@@ -214,3 +214,15 @@ export default function App() {
 
               {appState === "idle" && (
                 <div className="mt-6 bg-gray-50 rounded-lg p-4 flex items-center gap-3 text-gray-600 border border-gray-100">
+                  <Info size={20} className="text-blue-500 shrink-0" />
+                  <span className="text-sm">
+                    We'll check status, load time, SEO tags, and content structure.
+                  </span>
+                </div>
+              )}
+            </div>
+
+            {appState === "idle" && (
+              <div className="mt-8 flex items-center justify-center gap-3 text-sm font-medium text-gray-500 tracking-wide">
+                TRY:
+                <button
