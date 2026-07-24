@@ -442,3 +442,15 @@ export default function App() {
                     <span className="text-xs font-semibold text-gray-500 tracking-wider">
                       H1 TAGS
                     </span>
+                    <Type size={20} className={result.h1Count === 1 ? "text-emerald-500" : "text-amber-500"} />
+                  </div>
+                  <div className="text-2xl font-bold text-gray-900 mb-1">
+                    {result.h1Count}
+                  </div>
+                  <div className="text-sm text-gray-500">
+                    {result.h1Count === 1 ? "Optimal count" : result.h1Count === 0 ? "Missing H1" : "Multiple H1s"}
+                  </div>
+                </div>
+
+                {/* Missing Alt Text */}
+                <div className={`bg-white rounded-xl border p-5 ${result.imagesMissingAlt > 0 ? "border-red-200" : "border-gray-200"}`}>
