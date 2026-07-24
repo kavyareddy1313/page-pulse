@@ -346,3 +346,15 @@ export default function App() {
                   <div className="flex justify-between items-start mb-4">
                     <span className="text-xs font-semibold text-gray-500 tracking-wider">
                       RESPONSE TIME
+                    </span>
+                    <Gauge size={20} className={result.responseTimeMs < 1000 ? "text-emerald-500" : "text-amber-500"} />
+                  </div>
+                  <div className="flex items-baseline gap-1 mb-1">
+                    <span className="text-2xl font-bold text-gray-900">{result.responseTimeMs}</span>
+                    <span className="text-sm font-bold text-gray-900">ms</span>
+                  </div>
+                  <div className="text-sm text-gray-500">
+                    TTFB (Time to First Byte)
+                  </div>
+                </div>
+
