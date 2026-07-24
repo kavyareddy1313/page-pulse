@@ -1,0 +1,22 @@
+{
+  "name": "page-pulse",
+  "version": "1.0.0",
+  "description": "Website health & SEO checker — analyze any URL for key metrics",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently \"npm run dev:server\" \"npm run dev:client\"",
+    "dev:server": "node --watch server/index.js",
+    "dev:client": "cd client && npm run dev",
+    "build": "cd client && npm run build",
+    "start": "node server/index.js",
+    "install:all": "npm install && cd client && npm install"
+  },
+  "dependencies": {
+    "cheerio": "^1.0.0",
+    "cors": "^2.8.5",
+    "express": "^4.21.0"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.0"
+  }
+}
