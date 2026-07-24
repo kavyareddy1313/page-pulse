@@ -274,3 +274,15 @@ export default function App() {
                 </div>
                 <div className="w-32 h-8 bg-gray-200 rounded mb-4"></div>
                 <div className="w-full h-2 bg-gray-100 rounded"></div>
+              </div>
+            ))}
+            <div className="md:col-span-2 lg:col-span-3 bg-white rounded-xl border border-gray-200 p-6 h-32">
+               <div className="w-32 h-4 bg-gray-200 rounded mb-6"></div>
+               <div className="w-full h-12 bg-gray-100 rounded"></div>
+            </div>
+          </div>
+        )}
+
+        {/* Results State */}
+        {appState === "results" && result && (
+          <div className="w-full animate-in fade-in duration-500">
