@@ -226,3 +226,15 @@ export default function App() {
               <div className="mt-8 flex items-center justify-center gap-3 text-sm font-medium text-gray-500 tracking-wide">
                 TRY:
                 <button
+                  onClick={() => handleTryLink("github.com")}
+                  className="px-3 py-1.5 rounded-full bg-blue-50 text-blue-600 hover:bg-blue-100 border border-blue-100 transition-colors font-mono text-xs"
+                >
+                  github.com
+                </button>
+                <button
+                  onClick={() => handleTryLink("stripe.com/docs")}
+                  className="px-3 py-1.5 rounded-full bg-blue-50 text-blue-600 hover:bg-blue-100 border border-blue-100 transition-colors font-mono text-xs"
+                >
+                  stripe.com/docs
+                </button>
+              </div>
