@@ -110,7 +110,6 @@ export default function App() {
             <Bell size={20} />
           </button>
           <div className="w-8 h-8 rounded-full bg-gray-200 overflow-hidden border border-gray-300">
-            {/* Placeholder avatar */}
             <img
               src="https://api.dicebear.com/7.x/notionists/svg?seed=Felix&backgroundColor=f3f4f6"
               alt="User Avatar"
