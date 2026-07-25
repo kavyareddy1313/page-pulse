@@ -3,7 +3,7 @@
 Instant health and technical SEO snapshot for any webpage.
 
 ## Live Demo
-- **Live Frontend**: [https://page-pulse.vercel.app](https://page-pulse.vercel.app) *(Replace with your actual deployed URL)*
+- **Live Frontend**: https://page-pulse-nine-pink.vercel.app/ 
 - **Walkthrough Video**: [Loom link here]
 
 ## Setup Instructions
