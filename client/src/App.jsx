@@ -80,6 +80,26 @@ export default function App() {
     setUrl(`https://${exampleUrl}`);
   }
 
+  function handleExport() {
+    if (!result) return;
+    const dataStr = JSON.stringify(result, null, 2);
+    const blob = new Blob([dataStr], { type: "application/json" });
+    const urlBlob = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = urlBlob;
+    
+    let domain = "report";
+    try {
+      domain = new URL(result.url).hostname;
+    } catch {}
+    
+    link.download = `${domain}-page-pulse.json`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(urlBlob);
+  }
+
   return (
     <>
       <nav className="bg-white border-b border-gray-200 px-6 h-16 flex items-center justify-between shrink-0">
@@ -305,7 +325,10 @@ export default function App() {
                     <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
                     Healthy
                   </span>
-                  <button className="inline-flex items-center gap-2 px-3 py-1.5 text-sm text-gray-600 hover:text-gray-900 font-medium">
+                  <button 
+                    onClick={handleExport}
+                    className="inline-flex items-center gap-2 px-3 py-1.5 text-sm text-gray-600 hover:text-gray-900 font-medium"
+                  >
                     <Download size={16} /> Export
                   </button>
                 </div>
