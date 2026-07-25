@@ -7,7 +7,7 @@ const PORT = process.env.PORT || 3001;
 
 app.use(
   cors({
-    origin: "*", // Allows all origins (Localhost, Vercel Previews, and Production)
+    origin: "*",
   })
 );
 
