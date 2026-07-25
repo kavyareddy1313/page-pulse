@@ -4,7 +4,7 @@ Instant health and technical SEO snapshot for any webpage.
 
 ## Live Demo
 - **Live Frontend**: https://page-pulse-nine-pink.vercel.app/ 
-- **Walkthrough Video**: [Loom link here]
+- **Walkthrough Video**: https://drive.google.com/file/d/1O7aSX7gIFlxoQ1lJbpPXbc-WgPr1RbGQ/view?usp=drive_link
 
 ## Setup Instructions
 
