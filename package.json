@@ -13,13 +13,16 @@
     "install:all": "npm install && cd client && npm install"
   },
   "dependencies": {
+    "@sparticuz/chromium": "^149.0.0",
+    "axios": "^1.18.1",
     "cheerio": "^1.0.0",
     "cors": "^2.8.5",
     "express": "^4.21.0",
-    "puppeteer": "^25.3.0"
+    "puppeteer-core": "^25.3.0"
   },
   "devDependencies": {
     "concurrently": "^9.1.0",
-    "jest": "^30.4.2"
+    "jest": "^30.4.2",
+    "puppeteer": "^25.3.0"
   }
 }

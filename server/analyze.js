@@ -1,5 +1,7 @@
 const { parsePageMetrics } = require("./parsers/parsePageMetrics.js");
 const axios = require("axios");
+const puppeteerCore = require("puppeteer-core");
+const sparticuzChromium = require("@sparticuz/chromium");
 
 async function analyzeUrl(rawUrl) {
   try {
@@ -34,61 +36,87 @@ async function analyzeUrl(rawUrl) {
     }
 
     const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 12000); // Increased timeout slightly for SPAs
+    const timeout = setTimeout(() => controller.abort(), 20000); // Allow up to 20s for Puppeteer
 
-    let response;
     let responseTimeMs;
     const startTime = Date.now();
+    let html = "";
+    let statusCode = 200;
 
     try {
       const apiKey = process.env.SCRAPINGANT_API_KEY;
       
-      // If the user has provided an API key, we use ScrapingAnt to render JS and bypass Cloudflare
       if (apiKey) {
-        response = await axios.get("https://api.scrapingant.com/v2/general", {
-          params: {
-            url: parsedUrl.href,
-            "x-api-key": apiKey,
-            browser: true, // Enables JavaScript rendering
-          },
+        // Option 1: Fast & external headless API if user provides key
+        const response = await axios.get("https://api.scrapingant.com/v2/general", {
+          params: { url: parsedUrl.href, "x-api-key": apiKey, browser: true },
           signal: controller.signal,
-          validateStatus: () => true // Resolve on any status code
-        });
-      } else {
-        // Fallback to standard Axios request (fixes IPv6 hanging bug in native fetch)
-        response = await axios.get(parsedUrl.href, {
-          signal: controller.signal,
-          headers: {
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-          },
-          maxRedirects: 5,
           validateStatus: () => true
         });
+        html = response.data;
+        statusCode = response.status;
+      } else {
+        // Option 2: Native Headless Browsing via Puppeteer
+        const isProduction = process.env.VERCEL || process.env.NODE_ENV === "production";
+        
+        let browser;
+        if (isProduction) {
+          // On Vercel: use lightweight chromium binary
+          browser = await puppeteerCore.launch({
+            args: sparticuzChromium.args,
+            defaultViewport: sparticuzChromium.defaultViewport,
+            executablePath: await sparticuzChromium.executablePath(),
+            headless: sparticuzChromium.headless,
+            ignoreHTTPSErrors: true,
+          });
+        } else {
+          // Local dev: use installed puppeteer
+          const localPuppeteer = require("puppeteer");
+          browser = await localPuppeteer.launch({
+            headless: true,
+            args: ["--no-sandbox", "--disable-setuid-sandbox"],
+          });
+        }
+
+        const page = await browser.newPage();
+        
+        // Emulate a standard browser to help bypass simple checks
+        await page.setUserAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36");
+        
+        // Go to page and wait for JS to render. Use domcontentloaded for SPAs with WebSockets
+        const pageResponse = await page.goto(parsedUrl.href, { waitUntil: "domcontentloaded", timeout: 15000 });
+        if (pageResponse) statusCode = pageResponse.status();
+        
+        // Wait a bit for JS frameworks to populate the DOM
+        await new Promise(r => setTimeout(r, 3000));
+        
+        html = await page.content();
+        await browser.close();
       }
     } catch (err) {
       clearTimeout(timeout);
 
-      if (err.name === "CanceledError" || err.code === "ECONNABORTED" || err.message.includes("timeout")) {
+      if (err.name === "CanceledError" || err.code === "ECONNABORTED" || err.message.includes("timeout") || err.message.includes("Timeout")) {
         return {
           status: 408,
           body: {
             success: false,
             error: {
               type: "TIMEOUT",
-              message: "Request timed out — the site took longer to respond",
+              message: "Request timed out — the site took longer to respond or block bots",
             },
           },
         };
       }
 
+      console.error("Puppeteer/Axios Fetch Error:", err);
       return {
         status: 502,
         body: {
           success: false,
           error: {
             type: "FETCH_FAILED",
-            message: "Could not reach that URL — the site may be down or the domain may not exist",
+            message: "Could not reach that URL — the site may be down, or bot protections blocked access",
           },
         },
       };
@@ -97,23 +125,19 @@ async function analyzeUrl(rawUrl) {
     clearTimeout(timeout);
     responseTimeMs = Date.now() - startTime;
 
-    // Determine content type (ScrapingAnt returns the target site's headers in response.headers if configured, but by default it returns text/html)
-    const contentType = response.headers["content-type"] || "";
-    // If the request was successful but didn't return HTML
-    if (response.status === 200 && !contentType.includes("text/html") && !process.env.SCRAPINGANT_API_KEY) {
+    if (!html || typeof html !== "string") {
       return {
         status: 422,
         body: {
           success: false,
           error: {
             type: "NON_HTML_RESPONSE",
-            message: `That URL didn't return an HTML page (received ${contentType.split(";")[0].trim() || "unknown content type"})`,
+            message: `That URL didn't return an HTML page or was completely blocked`,
           },
         },
       };
     }
 
-    const html = response.data;
     const metrics = parsePageMetrics(html);
 
     return {
@@ -122,7 +146,7 @@ async function analyzeUrl(rawUrl) {
         success: true,
         data: {
           url: parsedUrl.href,
-          statusCode: response.status,
+          statusCode,
           responseTimeMs,
           pageTitle: metrics.pageTitle,
           metaDescription: metrics.metaDescription,
