@@ -80,24 +80,45 @@ export default function App() {
     setUrl(`https://${exampleUrl}`);
   }
 
-  function handleExport() {
+  async function handleExport() {
     if (!result) return;
-    const dataStr = JSON.stringify(result, null, 2);
-    const blob = new Blob([dataStr], { type: "application/json" });
-    const urlBlob = URL.createObjectURL(blob);
-    const link = document.createElement("a");
-    link.href = urlBlob;
     
-    let domain = "report";
+    const element = document.getElementById("report-container");
+    if (!element) return;
+
     try {
-      domain = new URL(result.url).hostname;
-    } catch {}
-    
-    link.download = `${domain}-page-pulse.json`;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    URL.revokeObjectURL(urlBlob);
+      // Create canvas from the report container
+      const canvas = await html2canvas(element, { 
+        scale: 2, 
+        useCORS: true,
+        backgroundColor: "#ffffff" 
+      });
+      
+      const imgData = canvas.toDataURL("image/png");
+      
+      // Calculate PDF dimensions (A4 size)
+      const pdf = new jsPDF({
+        orientation: "portrait",
+        unit: "mm",
+        format: "a4"
+      });
+      
+      const pdfWidth = pdf.internal.pageSize.getWidth();
+      const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+      
+      pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
+      
+      // Generate filename based on domain
+      let domain = "report";
+      try {
+        domain = new URL(result.url).hostname;
+      } catch {}
+      
+      pdf.save(`${domain}-page-pulse.pdf`);
+    } catch (err) {
+      console.error("Error generating PDF:", err);
+      alert("Failed to generate PDF. Please try again.");
+    }
   }
 
   return (
@@ -310,7 +331,7 @@ export default function App() {
               </button>
             </div>
 
-            <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
+            <div id="report-container" className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
               <div className="px-6 py-6 border-b border-gray-100 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                 <div>
                   <h2 className="text-2xl font-bold text-gray-900 mb-1 tracking-tight">
@@ -481,7 +502,7 @@ export default function App() {
       </main>
       <footer className="bg-white border-t border-gray-200 py-8 px-6 text-sm text-gray-500 flex flex-col sm:flex-row justify-between items-center shrink-0 gap-4">
         <div>
-          © 2024 Page Pulse. Precision SEO Analysis.
+          © 2026 Page Pulse. Precision SEO Analysis.
         </div>
         
         {/* Task B Requirement: Footer Credit */}
