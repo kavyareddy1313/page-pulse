@@ -1,4 +1,4 @@
-const cheerio = require("cheerio");
+const { parsePageMetrics } = require("./parsers/parsePageMetrics.js");
 
 async function analyzeUrl(rawUrl) {
   try {
@@ -97,31 +97,7 @@ async function analyzeUrl(rawUrl) {
     }
 
     const html = await response.text();
-    const $ = cheerio.load(html);
-
-    const pageTitle = $("title").first().text().trim() || null;
-
-    const metaDescription =
-      $('meta[name="description"]').attr("content")?.trim() || null;
-
-    const h1Count = $("h1").length;
-
-    let imagesMissingAlt = 0;
-    $("img").each((_, el) => {
-      const alt = $(el).attr("alt");
-      if (alt === undefined || alt.trim() === "") {
-        imagesMissingAlt++;
-      }
-    });
-
-    $("script, style, noscript").remove();
-    const visibleText = $("body").text();
-    const words = visibleText
-      .replace(/\s+/g, " ")
-      .trim()
-      .split(" ")
-      .filter((w) => w.length > 0);
-    const wordCount = words.length;
+    const metrics = parsePageMetrics(html);
 
     return {
       status: 200,
@@ -131,11 +107,11 @@ async function analyzeUrl(rawUrl) {
           url: parsedUrl.href,
           statusCode: response.status,
           responseTimeMs,
-          pageTitle,
-          metaDescription,
-          h1Count,
-          imagesMissingAlt,
-          wordCount,
+          pageTitle: metrics.pageTitle,
+          metaDescription: metrics.metaDescription,
+          h1Count: metrics.h1Count,
+          imagesMissingAlt: metrics.imagesMissingAlt,
+          wordCount: metrics.wordCount,
         },
       },
     };

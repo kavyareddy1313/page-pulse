@@ -456,10 +456,23 @@ export default function App() {
         )}
 
       </main>
-      <footer className="bg-white border-t border-gray-200 py-6 px-6 text-sm text-gray-500 flex justify-between items-center shrink-0">
+      <footer className="bg-white border-t border-gray-200 py-8 px-6 text-sm text-gray-500 flex flex-col sm:flex-row justify-between items-center shrink-0 gap-4">
         <div>
           © 2024 Page Pulse. Precision SEO Analysis.
         </div>
+        
+        {/* Task B Requirement: Footer Credit */}
+        <div className="text-xs text-center border-t sm:border-t-0 border-gray-100 pt-4 sm:pt-0 w-full sm:w-auto">
+          <a 
+            href="https://digitalheroesco.com" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="text-gray-400 hover:text-gray-600 transition-colors"
+          >
+            Built for Digital Heroes Training Task
+          </a>
+        </div>
+
         <div className="flex gap-6">
           <a href="#" className="hover:text-gray-900">Documentation</a>
           <a href="#" className="hover:text-gray-900">Support</a>
