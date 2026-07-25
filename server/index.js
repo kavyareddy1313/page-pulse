@@ -36,7 +36,7 @@ app.get("/api/health", (_req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`🚀 Page Pulse API running on http://localhost:${PORT}`);
+  console.log(`Page Pulse API running on http://localhost:${PORT}`);
 });
 
 module.exports = app;

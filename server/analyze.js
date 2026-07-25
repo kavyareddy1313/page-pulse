@@ -34,7 +34,11 @@ async function analyzeUrl(rawUrl) {
     }
 
     const controller = new AbortController();
+<<<<<<< HEAD
+    const timeout = setTimeout(() => controller.abort(), 20000); 
+=======
     const timeout = setTimeout(() => controller.abort(), 20000); // Allow up to 20s for Puppeteer
+>>>>>>> 86f8d8e06a8661370e585a2e92ae64eb5d481000
 
     let responseTimeMs;
     const startTime = Date.now();
@@ -54,6 +58,21 @@ async function analyzeUrl(rawUrl) {
         html = response.data;
         statusCode = response.status;
       } else {
+<<<<<<< HEAD
+        // Option 2: Simple HTTP GET using Axios (as per design decisions)
+        const response = await axios.get(parsedUrl.href, {
+          signal: controller.signal,
+          headers: {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"
+          },
+          validateStatus: () => true // Resolve promise for all HTTP status codes
+        });
+        
+        // Ensure html is a string for the parser
+        html = typeof response.data === 'string' ? response.data : JSON.stringify(response.data);
+        statusCode = response.status;
+=======
         // Option 2: Native Headless Browsing via Puppeteer
         const isProduction = process.env.VERCEL || process.env.NODE_ENV === "production";
         
@@ -94,6 +113,7 @@ async function analyzeUrl(rawUrl) {
         
         html = await page.content();
         await browser.close();
+>>>>>>> 86f8d8e06a8661370e585a2e92ae64eb5d481000
       }
     } catch (err) {
       clearTimeout(timeout);
