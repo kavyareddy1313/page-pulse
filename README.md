@@ -120,4 +120,3 @@ The `parsePageMetrics.test.js` suite covers:
 
 With another day of development, I would implement robust rate-limiting and response caching using Redis. Since auditing a page can be relatively slow and network-heavy, caching the results of recently analyzed URLs for an hour would drastically improve perceived performance and protect the server from abuse. I would also add more nuanced metrics, such as detecting canonical URLs and checking for basic OpenGraph meta tags.
 
--------
