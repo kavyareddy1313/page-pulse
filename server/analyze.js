@@ -1,7 +1,5 @@
 const { parsePageMetrics } = require("./parsers/parsePageMetrics.js");
 const axios = require("axios");
-const puppeteerCore = require("puppeteer-core");
-const sparticuzChromium = require("@sparticuz/chromium");
 
 async function analyzeUrl(rawUrl) {
   try {
@@ -61,6 +59,10 @@ async function analyzeUrl(rawUrl) {
         
         let browser;
         if (isProduction) {
+          // Dynamically require to avoid Vercel crashing on boot due to bundle size limits
+          const puppeteerCore = require("puppeteer-core");
+          const sparticuzChromium = require("@sparticuz/chromium");
+          
           // On Vercel: use lightweight chromium binary
           browser = await puppeteerCore.launch({
             args: sparticuzChromium.args,
@@ -71,7 +73,7 @@ async function analyzeUrl(rawUrl) {
           });
         } else {
           // Local dev: use installed puppeteer
-          const localPuppeteer = require("puppeteer");
+          const localPuppeteer = require(String("puppeteer"));
           browser = await localPuppeteer.launch({
             headless: true,
             args: ["--no-sandbox", "--disable-setuid-sandbox"],
